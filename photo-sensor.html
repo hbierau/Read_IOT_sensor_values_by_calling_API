@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+<script>
+
+$( function() {   
+        var deviceID = "350032000647343339373536";
+        var accessToken = "e40bc0ee2dbc02026f4035f0677afb56e1beb26d";
+        var varName = "analogvalue";
+        var pollRate ="2000";
+
+function poll(){
+
+                $.ajax({
+                    type: "get",
+                    url: "https://api.particle.io/v1/devices/"+deviceID+"/"+varName+"/?access_token="+accessToken, 
+                    
+                    dataType: "json",   // Expect JSON-formatted response from agent.
+                    success: function(sensor) {  
+
+                    
+                        $("#photosensor").html(sesnor.result);             
+                        $("#tstamp").html(sensor.coreInfo.last_heard);
+                    }
+                    
+                });
+            
+            }
+           
+            setInterval(function(){ poll(); }, pollRate);
+    
+        });
+
+</script>
+
+</head>
+
+<body>
+        
+        <p> <b>Photo-sensor value:</b> <span id="photosensor"></span></p>
+        <p> <b>Time:</b> <span id="tstamp"></span></p>
+
+    
+</body>
+</html>
